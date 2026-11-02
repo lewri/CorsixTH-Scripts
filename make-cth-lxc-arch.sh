@@ -15,11 +15,11 @@ if [ -d "/var/lib/lxc/$CONTAINER_NAME" ]; then
 fi
 
 # Create fresh container
-# jammy for 22.04, noble for 24.04, resolute for 26.04
+# jammy for 22.04, noble for 24.04, resolute for 26.04, stonking for 26.10
 echo "➜ Creating new container..."
 lxc-create -n "$CONTAINER_NAME" -t download -- \
   --dist ubuntu \
-  --release resolute \
+  --release stonking \
   --arch amd64
 
 # Add FUSE configuration
@@ -46,7 +46,7 @@ echo "➜ Starting container..."
 lxc-start -n "$CONTAINER_NAME"
 
 echo "➜ Attaching to container..."
-echo "   Run the build script with: /corsixth-appimage-sdl3.sh"
+echo "   Run the build script with: ./corsixth-appimage-sdl3.sh"
 lxc-attach -n "$CONTAINER_NAME"
 
 # Determine user 1000 home and destination directory
