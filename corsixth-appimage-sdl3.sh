@@ -38,7 +38,7 @@ fi
 apt-get install -y \
     build-essential cmake doxygen ffmpeg graphviz libavfilter-dev libavformat-dev \
     libavutil-dev libavcodec-dev libavdevice-dev libcurl4-openssl-dev libfreetype-dev libflac++-dev \
-    libfluidsynth-dev liblua5.4-dev libmikmod-dev libmpg123-dev libogg-dev libsdl3-dev libsdl3-mixer-dev \
+    libfluidsynth-dev liblua5.4-dev lua5.4 libmikmod-dev libmpg123-dev libogg-dev libsdl3-dev libsdl3-mixer-dev \
     libswresample-dev libswscale-dev libvorbis-dev lua-filesystem luarocks libwhereami-dev \
     librtmidi-dev libjack-jackd2-0 zlib1g wget
 

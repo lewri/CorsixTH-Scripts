@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ubuntu:26.04
+      image: ubuntu:26.10
 
     env:
       DEBIAN_FRONTEND: noninteractive
@@ -65,13 +65,6 @@ jobs:
       - name: Install build dependencies
         shell: bash
         run: |
-          if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
-            sed -i '/^Components:/ { /universe/! s/$/ universe/; /multiverse/! s/$/ multiverse/; }' /etc/apt/sources.list.d/ubuntu.sources
-          fi
-          if [ -f /etc/apt/sources.list ]; then
-            sed -i '/^deb / { /universe/! s/$/ universe/; /multiverse/! s/$/ multiverse/; }' /etc/apt/sources.list
-          fi
-
           apt-get update
 
           apt-get install -y \
@@ -94,6 +87,7 @@ jobs:
             libfluidsynth-dev \
             libjack-jackd2-0 \
             liblua5.4-dev \
+            lua5.4 \
             libmikmod-dev \
             libmpg123-dev \
             libogg-dev \
