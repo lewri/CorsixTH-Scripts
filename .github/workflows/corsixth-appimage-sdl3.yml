@@ -96,7 +96,6 @@ jobs:
             libmikmod-dev \
             libmpg123-dev \
             libogg-dev \
-            libpostproc-dev \
             librtmidi-dev \
             libsdl3-dev \
             libsdl3-mixer-dev \
