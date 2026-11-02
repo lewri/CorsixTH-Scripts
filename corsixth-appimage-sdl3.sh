@@ -1,5 +1,5 @@
 #!/bin/bash
-## This runs suitably on LXC Ubuntu 26.04. Not currently tested on any other format/distro
+## This runs suitably on LXC Ubuntu 26.10. Not currently tested on any other format/distro
 ## NOTE: Not suitable for use on Corsix-TH versions prior to v0.71.0 (or pre PR3436)!
 
 set -euo pipefail
@@ -23,14 +23,6 @@ repo_url="https://github.com/$fork/CorsixTH.git"
 # Let's make sure we know where we are first
 cd / || exit 1
 
-# Ensure universe and multiverse repositories are enabled
-if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
-  sed -i '/^Components:/ { /universe/! s/$/ universe/; /multiverse/! s/$/ multiverse/; }' /etc/apt/sources.list.d/ubuntu.sources
-fi
-if [ -f /etc/apt/sources.list ]; then
-  sed -i '/^deb / { /universe/! s/$/ universe/; /multiverse/! s/$/ multiverse/; }' /etc/apt/sources.list
-fi
-
 # Check the branch at the fork exists first, so we can exit early if so.
 apt-get update && apt-get install -y git
 
@@ -42,11 +34,11 @@ if ! git ls-remote --exit-code --heads "$repo_url" "$ver" &>/dev/null && ! git l
   exit 1
 fi
 
-# Install packages (no need to run update again)
+# Install packages
 apt-get install -y \
     build-essential cmake doxygen ffmpeg graphviz libavfilter-dev libavformat-dev \
     libavutil-dev libavcodec-dev libavdevice-dev libcurl4-openssl-dev libfreetype-dev libflac++-dev \
-    liblua5.4-dev libmikmod-dev libmpg123-dev libogg-dev libpostproc-dev libsdl3-dev libsdl3-mixer-dev \
+    liblua5.4-dev libmikmod-dev libmpg123-dev libogg-dev libsdl3-dev libsdl3-mixer-dev \
     libswresample-dev libswscale-dev libvorbis-dev lua-filesystem luarocks libwhereami-dev \
     librtmidi-dev libjack-jackd2-0 zlib1g wget
 
