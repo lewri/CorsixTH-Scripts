@@ -1,17 +1,20 @@
 #!/bin/bash
 ## This runs suitably on LXC Ubuntu 26.04. Not currently tested on any other format/distro
 ## NOTE: Not suitable for use on Corsix-TH versions prior to v0.71.0 (or pre PR3436)!
+
+set -euo pipefail
+
 # Initialise
 echo ":: CorsixTH AppImage Builder ::"
 echo " "
 
 echo "Would you like to specify a fork of CorsixTH?"
 echo "e.g. lewri to use the fork lewri/CorsixTH; or leave blank to use the upstream."
-read -r fork
+read -r fork || true
 
 echo "Would you like to specify a branch or tag? (must be at least 0.71.0 or newer)"
 echo "e.g. v0.71.0, or leave blank to create an appimage from master"
-read -r ver
+read -r ver || true
 
 # If $fork is unset or empty, default it to 'CorsixTH'
 fork="${fork:-CorsixTH}"
@@ -20,13 +23,21 @@ repo_url="https://github.com/$fork/CorsixTH.git"
 # Let's make sure we know where we are first
 cd / || exit 1
 
+# Ensure universe and multiverse repositories are enabled
+if [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+  sed -i '/^Components:/ { /universe/! s/$/ universe/; /multiverse/! s/$/ multiverse/; }' /etc/apt/sources.list.d/ubuntu.sources
+fi
+if [ -f /etc/apt/sources.list ]; then
+  sed -i '/^deb / { /universe/! s/$/ universe/; /multiverse/! s/$/ multiverse/; }' /etc/apt/sources.list
+fi
+
 # Check the branch at the fork exists first, so we can exit early if so.
 apt-get update && apt-get install -y git
 
 # If $ver is unset or empty, default it to 'master'
 ver="${ver:-master}"
 # Check the branch specified exists
-if ! (git ls-remote --exit-code --heads "$repo_url" "$ver" || git ls-remote --exit-code --tags "$repo_url" "$ver") &> /dev/null; then
+if ! git ls-remote --exit-code --heads "$repo_url" "$ver" &>/dev/null && ! git ls-remote --exit-code --tags "$repo_url" "$ver" &>/dev/null; then
   echo "Error: '$ver' is neither a branch nor a tag in $repo_url. Exiting..."
   exit 1
 fi
@@ -43,12 +54,12 @@ apt-get install -y \
 # Clone with specified version set with $ver
 if [ -n "$ver" ]; then
     echo "Cloning $ver..."
-    git clone $repo_url --branch "$ver"
+    git clone "$repo_url" --branch "$ver"
 else
 # Clone from master if no version set
     echo "Cloning from master..."
     ver="master"
-    git clone $repo_url --branch "$ver"
+    git clone "$repo_url" --branch "$ver"
 fi
 
 # Go to project
@@ -75,7 +86,7 @@ wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/lin
 chmod +x linuxdeploy-x86_64.AppImage
 
 # Copy some deps over manually
-sudo luarocks install lpeg --lua-version 5.4
+luarocks install lpeg --lua-version 5.4
 cp  /usr/lib/x86_64-linux-gnu/lua/5.4/lfs.so \
     /usr/local/lib/lua/5.4/lpeg.so \
 ../AppDir/usr/share/corsix-th/
