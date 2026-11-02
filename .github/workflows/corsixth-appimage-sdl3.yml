@@ -91,6 +91,7 @@ jobs:
             libcurl4-openssl-dev \
             libfreetype-dev \
             libflac++-dev \
+            libfluidsynth-dev \
             libjack-jackd2-0 \
             liblua5.4-dev \
             libmikmod-dev \
