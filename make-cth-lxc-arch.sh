@@ -1,6 +1,4 @@
 #!/bin/bash
-set -euo pipefail
-
 CONTAINER_NAME="corsixth-appimage-build"
 
 # Safely stop and destroy existing container (if applicable)
