@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+set -euo pipefail
+
 CONTAINER_NAME="corsixth-appimage-build"
 
 # Safely stop and destroy existing container (if applicable)
@@ -51,7 +53,9 @@ lxc-attach -n "$CONTAINER_NAME"
 TARGET_USER="$(getent passwd 1000 | cut -d: -f1)"
 TARGET_HOME="$(getent passwd 1000 | cut -d: -f6)"
 TARGET_DIR="${TARGET_HOME}/Desktop"
-[ -d "$TARGET_DIR" ] || TARGET_DIR="$TARGET_HOME"
+if [ ! -d "$TARGET_DIR" ]; then
+  TARGET_DIR="$TARGET_HOME"
+fi
 
 if [ -n "$TARGET_DIR" ] && [ -d "$TARGET_DIR" ]; then
   echo "➜ Copying AppImage to $TARGET_DIR..."
