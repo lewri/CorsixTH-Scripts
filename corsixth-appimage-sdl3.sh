@@ -1,5 +1,5 @@
 #!/bin/bash
-## This runs suitably on LXC Ubuntu 24.04. Not currently tested on any other format/distro
+## This runs suitably on LXC Ubuntu 26.04. Not currently tested on any other format/distro
 ## NOTE: Not suitable for use on Corsix-TH versions prior to v0.71.0 (or pre PR3436)!
 # Initialise
 echo ":: CorsixTH AppImage Builder ::"
@@ -9,8 +9,8 @@ echo "Would you like to specify a fork of CorsixTH?"
 echo "e.g. lewri to use the fork lewri/CorsixTH; or leave blank to use the upstream."
 read -r fork
 
-echo "Would you like to specify a branch or tag? (must be at least 0.69.0 or newer)"
-echo "e.g. v0.69.0, or leave blank to create an appimage from master"
+echo "Would you like to specify a branch or tag? (must be at least 0.71.0 or newer)"
+echo "e.g. v0.71.0, or leave blank to create an appimage from master"
 read -r ver
 
 # If $fork is unset or empty, default it to 'CorsixTH'
@@ -35,9 +35,9 @@ fi
 apt-get install -y \
     build-essential cmake doxygen ffmpeg graphviz libavfilter-dev libavformat-dev \
     libavutil-dev libavcodec-dev libavdevice-dev libcurl4-openssl-dev libfreetype-dev libflac++-dev \
-    liblua5.4-dev libmikmod-dev libmpg123-dev libogg-dev libpostproc-dev libsdl2-dev libsdl2-mixer-dev \
+    liblua5.4-dev libmikmod-dev libmpg123-dev libogg-dev libpostproc-dev libsdl3-dev libsdl3-mixer-dev \
     libswresample-dev libswscale-dev libvorbis-dev lua-filesystem luarocks libwhereami-dev \
-    librtmidi-dev zlib1g wget
+    librtmidi-dev libjack-jackd2-0 zlib1g wget
 
 ## Clone repo
 # Clone with specified version set with $ver

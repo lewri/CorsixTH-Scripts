@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ubuntu:24.04
+      image: ubuntu:26.04
 
     env:
       DEBIAN_FRONTEND: noninteractive
@@ -91,8 +91,8 @@ jobs:
             libogg-dev \
             libpostproc-dev \
             librtmidi-dev \
-            libsdl2-dev \
-            libsdl2-mixer-dev \
+            libsdl3-dev \
+            libsdl3-mixer-dev \
             libswresample-dev \
             libswscale-dev \
             libvorbis-dev \
