@@ -38,7 +38,7 @@ fi
 apt-get install -y \
     build-essential cmake doxygen ffmpeg graphviz libavfilter-dev libavformat-dev \
     libavutil-dev libavcodec-dev libavdevice-dev libcurl4-openssl-dev libfreetype-dev libflac++-dev \
-    libfluidsynth-dev liblua5.4-dev lua5.4 libmikmod-dev libmpg123-dev libogg-dev libsdl3-dev libsdl3-mixer-dev \
+    libfluidsynth-dev liblua5.4-dev lua5.4 libmikmod-dev libmpg123-dev libogg-dev libsdl3-dev \
     libswresample-dev libswscale-dev libvorbis-dev lua-filesystem luarocks libwhereami-dev \
     librtmidi-dev libjack-jackd2-0 zlib1g wget
 
@@ -69,6 +69,7 @@ cmake \
     -DLUA_LIBRARY='/usr/lib/x86_64-linux-gnu/liblua5.4.so' \
     -DCMAKE_INSTALL_RPATH='\$ORIGIN/../lib' \
     -DFETCH_UNICODE_FONT=ON \
+    -FETCH_SDL_MIXER=ON \
     ..
 make -j"$(nproc)"
 make install
