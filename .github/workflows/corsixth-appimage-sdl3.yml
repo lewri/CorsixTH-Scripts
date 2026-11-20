@@ -93,7 +93,6 @@ jobs:
             libogg-dev \
             librtmidi-dev \
             libsdl3-dev \
-            libsdl3-mixer-dev \
             libswresample-dev \
             libswscale-dev \
             libvorbis-dev \
@@ -150,6 +149,7 @@ jobs:
             -DLUA_LIBRARY=/usr/lib/x86_64-linux-gnu/liblua5.4.so \
             -DCMAKE_INSTALL_RPATH='$ORIGIN/../lib' \
             -DFETCH_UNICODE_FONT=ON \
+            -DETCH_SDL_MIXER=ON \
             ..
 
           make -j"$(nproc)"
