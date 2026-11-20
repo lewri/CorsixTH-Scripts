@@ -69,7 +69,7 @@ cmake \
     -DLUA_LIBRARY='/usr/lib/x86_64-linux-gnu/liblua5.4.so' \
     -DCMAKE_INSTALL_RPATH='\$ORIGIN/../lib' \
     -DFETCH_UNICODE_FONT=ON \
-    -FETCH_SDL_MIXER=ON \
+    -DFETCH_SDL_MIXER=ON \
     ..
 make -j"$(nproc)"
 make install
